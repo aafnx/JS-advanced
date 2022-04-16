@@ -1,4 +1,4 @@
-const productsEl = document.querySelector('.products');
+'use strict'
 
 const products = [
   {
@@ -26,6 +26,9 @@ const products = [
     img: `https://picsum.photos/300?random=4`
   },
 ];
+
+const productsEl = document.querySelector('.products');
+
 
 /**
  * @param  {object} product
