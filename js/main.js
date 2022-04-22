@@ -42,6 +42,11 @@ class ProductList {
       block.insertAdjacentHTML("beforeend", item.render());
     }
   }
+
+  calcSumProducts() {
+    this.sumPriceProducts = 0;
+    this.goods.forEach(product => this.sumPriceProducts += product.price);
+  }
 }
 
 class ProductItem {
@@ -63,6 +68,54 @@ class ProductItem {
             </button>
           </div>
           </div>`
+  }
+}
+
+class ShoppingCart {
+  constructor() {
+
+  }
+
+  calcTotalPrice() {
+
+  }
+  calcTotalCountProducts() {
+
+  }
+
+  addProduct(product) {
+
+  }
+
+  removeProduct(product) {
+
+  }
+
+  removeAllProducts() {
+
+  }
+
+  render() {
+
+  }
+
+}
+
+class ProductInShoppingCart {
+  constructor() {
+
+  }
+
+  calcSum() {
+
+  }
+
+  increaseCount() {
+
+  }
+
+  decraseCount() {
+
   }
 }
 
