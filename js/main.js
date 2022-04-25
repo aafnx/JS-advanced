@@ -1,5 +1,7 @@
 'use strict'
 
+const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+
 class ProductList {
   constructor(container = '.products') {
     this.container = container;
