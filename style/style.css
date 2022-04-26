@@ -42,7 +42,6 @@ header {
 .btn-cart {
   color: var(--second-color);
   border: 1px solid var(--second-color);
-  
 }
 .btn-cart:hover {
   background-color: var(--second-color);
@@ -56,6 +55,13 @@ header {
   box-shadow: 0 0 0 0.25rem var(--second-color-focus);
 }
 
+.modal {
+  background-color: rgba(0,0,0,0.5);
+}
+.modal-dialog {
+  max-width: 800px;
+}
+
 .container {
   max-width: var(--width-page);
   margin: 0 auto;
@@ -65,4 +71,34 @@ header {
   display: flex;
   justify-content: space-around;
   margin: 80px 0;
+}
+
+.shopping-cart {
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.card-basket {
+  display: flex;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 0.25rem;
+  margin: 20px auto;
+}
+
+.card-basket img {
+  width: 150px;
+  height: 150px;
+  margin: auto;
+}
+
+.modal {
+  overflow: hidden;
+}
+
+.modal-footer {
+  display: block;
+}
+
+.cart-sum {
+  font-size: 20px;
 }
