@@ -47,16 +47,18 @@
   <script>
     'use strict'
 
-    // 1
+    // 1, 2
     const textSource = document.querySelector('.source').innerHTML;
     const textModifiedEl = document.querySelector('.modified');
 
     const regExp = /'/g;
+    const regExpApostrophe = /\b"\b/g;
 
-    const replacedText = textSource.replace(regExp, '"');
+    // console.log(textSource.match(regExp))
+
+    const replacedText = textSource.replace(regExp, '"').replace(regExpApostrophe, "'");
 
     textModifiedEl.insertAdjacentHTML('beforeend', replacedText);
-
 
     // 3
 
