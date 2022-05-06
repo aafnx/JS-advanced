@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4</title>
+</head>
+
+<body>
+  <h3>Source</h3>
+  <div class="source">
+    One: 'Hi Mary.' <br>
+    Two: 'Oh, hi.' <br>
+    One: 'How are you doing?'<br>
+    Two: 'I'm doing alright. How about you?'<br>
+    One: 'Not too bad. The weather is great isn't it?'<br>
+    Two: 'Yes. It's absolutely beautiful today.'<br>
+    One: 'I wish it was like this more frequently.'<br>
+    Two: 'Me too.'<br>
+    One: 'So where are you going now?'<br>
+    Two: 'I'm going to meet a friend of mine at the department store.'<br>
+    One: 'Going to do a little shopping?'<br>
+    Two: 'Yeah, I have to buy some presents for my parents.'<br>
+    One: 'What's the occasion?'<br>
+    Two: 'It's their anniversary.'<br>
+    One: 'That's great. Well, you better get going. You don't want to be late.'<br>
+    Two: 'I'll see you next time.'<br>
+    One: 'Sure. Bye.'<br>
+  </div>
+
+  <div class="modified">
+    <h3>Modified</h3>
+
+  </div>
+
+  <fieldset style="margin: 40px;">
+    <form accept="#">
+      <input type="text" class="name" placeholder="Alex">name <br>
+      <input type="text" class="phone" placeholder="+7(000)000-0000" style="margin: 10px 0;">phone <br>
+      <input type="email" class="mail" placeholder="mymail@mail.ru">email <br>
+      <button type="submit" class="button" style="margin: 10px 0;">send</button>
+      <div class="errors"></div>
+    </form>
+  </fieldset>
+  <script>
+    'use strict'
+
+    // 1, 2
+    const textSource = document.querySelector('.source').innerHTML;
+    const textModifiedEl = document.querySelector('.modified');
+
+    const regExp = /'/g;
+    const regExpApostrophe = /\b"\b/g;
+
+    // console.log(textSource.match(regExp))
+
+    const replacedText = textSource.replace(regExp, '"').replace(regExpApostrophe, "'");
+
+    textModifiedEl.insertAdjacentHTML('beforeend', replacedText);
+
+    // 3
+
+    const nameEl = document.querySelector('.name');
+    const phoneEl = document.querySelector('.phone');
+    const mailEl = document.querySelector('.mail');
+    const errorsEl = document.querySelector('.errors');
+
+    const regExpName = /^[A-ZА-Я][a-zа-я]+$/; // имя
+    const regExpPhone = /^\+\d\(\d{3}\)\d{3}\-\d{4}$/; // телефон
+    const regExpMail = /^[a-zA-Z]+(\.|\-)?[a-zA-Z]+\@[a-zA-Z]{2,}\.[a-zA-Z]{2,}$/; // почта
+
+
+    document.querySelector('.button').addEventListener('click', event => {
+      errorsEl.textContent = '';
+      if (nameEl.value.match(regExpName)) {
+        nameEl.style.outline = '2px solid green';
+      } else {
+        nameEl.style.outline = '2px solid red';
+        errorsEl.insertAdjacentHTML('beforeend', '<p>Имя должно быть написано с большой буквы, могут использоваться только русские или английские буквы</p>');
+        event.preventDefault();
+      };
+
+      if (phoneEl.value.match(regExpPhone)) {
+        phoneEl.style.outline = '2px solid green';
+      } else {
+        phoneEl.style.outline = '2px solid red';
+        errorsEl.insertAdjacentHTML('beforeend', '<p>Телефон должен быть написан в формате - +7(111)222-3333</p>');
+        event.preventDefault();
+      };
+
+      if (mailEl.value.match(regExpMail)) {
+        mailEl.style.outline = '2px solid green';
+      } else {
+        mailEl.style.outline = '2px solid red';
+        errorsEl.insertAdjacentHTML('beforeend', '<p>Почта должна быть формата - mymail@mail.ru или my.mail@mail.ru или my-mail@mail.ru</p>');
+        event.preventDefault();
+      };
+    });
+
+
+  </script>
+</body>
+
+</html>
