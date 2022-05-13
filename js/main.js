@@ -1,45 +1,72 @@
 const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
 const app = new Vue({
-    el: '#app',
-    data: {
-        catalogUrl: '/catalogData.json',
-        products: [],
-        filtered: [],
-        imgCatalog: 'https://via.placeholder.com/200x150',
-        userSearch: '',
-        show: false
+  el: '#app',
+  data: {
+    catalogUrl: '/catalogData.json',
+    products: [],
+    filtered: [],
+    productsCart: [],
+    imgCatalog: 'https://via.placeholder.com/200x150',
+    userSearch: '',
+    show: false
+  },
+  methods: {
+    filter(value) {
+      const regexp = new RegExp(value, 'i');
+      this.filtered = this.products.
+        filter(product => regexp.test(product.product_name));
     },
-    methods: {
-        filter(value){
-         const regexp = new RegExp(value, 'i');
-         this.filtered = this.products.filter(product => regexp.test(product.product_name));
-        },
-        getJson(url){
-            return fetch(url)
-                .then(result => result.json())
-                .catch(error => {
-                    console.log(error);
-                })
-        },
-        addProduct(product){
-            console.log(product.id_product);
-        }
+    getJson(url) {
+      return fetch(url)
+        .then(result => result.json())
+        .catch(error => {
+          console.log(error);
+        })
     },
-    mounted(){
-       this.getJson(`${API + this.catalogUrl}`)
-           .then(data => {
-               for(let el of data){
-                   this.products.push(el);
-               }
-           });
-        this.getJson(`getProducts.json`)
-            .then(data => {
-                for(let el of data){
-                    this.products.push(el);
-                }
-            })
+    addProduct(product) {
+      const productInCart = this.productsCart.
+        filter(item => item.id_product === product.id_product);
+      if (productInCart.length) {
+        product.count++;
+      } else {
+        Vue.set(product, 'count', 1); // делаем новое свойство реактивным
+        this.productsCart.push(product);
+      }
+    },
+    removeProduct(product) {
+      product.count--;
+      if (!product.count) {
+        this.productsCart = this.productsCart.
+          filter(item => item.id_product !== product.id_product);
+      }
+    },
+    resetCart() {
+      this.productsCart = [];
     }
+  },
+  computed: {
+    getCartSum() {
+      return this.productsCart.
+        reduce(((sum, item) => sum + item.price * item.count), 0)
+    }
+  },
+  mounted() {
+    this.getJson(`${API + this.catalogUrl}`)
+      .then(data => {
+        for (let el of data) {
+          this.products.push(el);
+          this.filtered.push(el);
+        }
+      });
+    this.getJson(`getProducts.json`)
+      .then(data => {
+        for (let el of data) {
+          this.products.push(el);
+          this.filtered.push(el);
+        }
+      })
+  }
 })
 
 // class List {

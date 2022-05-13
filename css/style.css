@@ -79,7 +79,7 @@ img {
     background-color: white;
     padding: 20px;
     color: black;
-    width: 300px;
+    width: 400px;
 }
 
 .invisible{
@@ -168,4 +168,22 @@ img {
     background-color: transparent;
     border: none;
     border-bottom: 2px solid #fafafa;
+}
+
+.no-products-data {
+  margin: 40px auto;
+  text-align: center;
+  font-size: 40px;
+}
+
+.product-in-cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rm-btn {
+  border-radius: 50%;
+  background-color: red;
+  cursor: pointer;
 }
