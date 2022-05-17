@@ -175,3 +175,10 @@ img {
     margin: 40px auto;
     font-size: 3em;
 }
+
+.error {
+  text-align: center;
+  margin: 80px auto;
+  font-size: 4em;
+  color: red;
+}

@@ -4,7 +4,6 @@ const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-a
 const app = new Vue({
   el: '#app',
   data: {
-    userSearch: '',
     showCart: false,
     catalogUrl: '/catalogData.json',
     cartUrl: '/getBasket.json',
@@ -66,14 +65,19 @@ const app = new Vue({
           this.$data.products.push(item);
           this.$data.filtered.push(item);
         }
+        this.$data.error = false;
+      })
+      .catch(error => {
+        console.log(error);
+        this.$data.error = true;
       });
-    this.getJson(`getProducts.json`)
-        .then(data => {
-            for(let item of data){
-                this.$data.products.push(item);
-                this.$data.filtered.push(item);
-            }
-        })
+    // this.getJson(`getProducts.json`)
+    //   .then(data => {
+    //     for (let item of data) {
+    //       this.$data.products.push(item);
+    //       this.$data.filtered.push(item);
+    //     }
+    //   })
   }
 
 });

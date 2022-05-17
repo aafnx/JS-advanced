@@ -9,8 +9,7 @@ Vue.component('filter-products', {
   `,
   data() {
     return {
-      request: this.userRequest,
+      request: '',
     }
   },
-  props: ['userRequest']
 })
