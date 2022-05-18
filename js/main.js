@@ -18,6 +18,10 @@ const app = new Vue({
     getJson(url) {
       return fetch(url)
         .then(result => result.json())
+        .catch(error => {
+          console.log(error);
+          this.$data.error = true;
+        })
 
     },
     addProduct(item) {
@@ -65,19 +69,14 @@ const app = new Vue({
           this.$data.products.push(item);
           this.$data.filtered.push(item);
         }
-        this.$data.error = false;
-      })
-      .catch(error => {
-        console.log(error);
-        this.$data.error = true;
       });
-    // this.getJson(`getProducts.json`)
-    //   .then(data => {
-    //     for (let item of data) {
-    //       this.$data.products.push(item);
-    //       this.$data.filtered.push(item);
-    //     }
-    //   })
+    this.getJson(`getProducts.json`)
+      .then(data => {
+        for (let item of data) {
+          this.$data.products.push(item);
+          this.$data.filtered.push(item);
+        }
+      })
   }
 
 });
