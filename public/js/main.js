@@ -1,30 +1,16 @@
-const linkListSection = document.getElementById('menu');
-const menu = [
-  { link: '#', name: 'Главная'},
-  { link: '#Section_2', name: 'Продукт'},
-  { link: '#', name: 'Контакты'}
-];
-const renderMenu = (link, name) => `<a class="menuStyle" href="${link}">${name}</a>`;//добавление класса для стилизации меню
-
-const renderLinkList = (list) => {
-const linkList = list.map(item => renderMenu(item.link, item.name));
-document.querySelector('.menu').innerHTML = linkList.join('');
-}
-renderLinkList(menu);
 const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
-
 const app = new Vue({
     el: '#app',
     data: {
-        userSearch: '',
+        error: false
     },
     methods: {
         getJson(url){
             return fetch(url)
                 .then(result => result.json())
                 .catch(error => {
-                    // console.log(error)
-                    this.$refs.error.text = error;
+                    // console.log(error);
+                    this.error = true;
                 })
         },
         postJson(url, data){
@@ -38,7 +24,7 @@ const app = new Vue({
                 .then(result => result.json())
                 .catch(error => {
                     // console.log(error)
-                    this.$refs.error.text = error;
+                    this.error = true;
                 })
         },
         putJson(url, data){
@@ -52,16 +38,20 @@ const app = new Vue({
                 .then(result => result.json())
                 .catch(error => {
                     // console.log(error)
-                    this.$refs.error.text = error;
+                    this.error = true;
                 })
         },
-
-
+        deleteJson(url, data){
+            return fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+                .then(result => result.json())
+                .catch(error => this.error = true);
+        },
     },
-    mounted(){
-
-
-    }
-
 });
 

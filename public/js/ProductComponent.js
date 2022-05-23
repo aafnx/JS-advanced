@@ -11,7 +11,6 @@ Vue.component('products', {
         this.$parent.getJson(`/api/products`)
             .then(data => {
                 for (let item of data){
-                    item.imgPath = `img/${item.id_product}.jpg`;
                     this.$data.products.push(item);
                     this.$data.filtered.push(item);
                 }
@@ -23,24 +22,42 @@ Vue.component('products', {
             this.filtered = this.products.filter(el => regexp.test(el.product_name));
         }
     },
-   template: `<div class="products">
+        template:
+        `<div>
+            <error ref="error"></error>
+            <div v-show="!$root.error">
+            <ul class="product-cards-box" v-if="filtered.length">
                 <product v-for="item of filtered" 
                 :key="item.id_product" 
-                :img="item.imgPath"
-                :product="item"
-                @add-product="$parent.$refs.cart.addProduct"></product>
-               </div>`
+                :product="item">
+                
+                </product>
+            </ul>
+            <h3 v-else class="no-product">Поиск не дал результатов</h3>
+            </div>
+        </div>
+        `
 });
 Vue.component('product', {
-    props: ['product', 'img'],
+    props: ['product'],
     template: `
-            <div class="product-item">
-                <img :src="img" alt="Some img">
-                <div class="desc">
-                <h3 class="forDesc">{{product.product_name}}</h3>
-                <p class="forDesc">{{product.price}}</p>
-                    <button class="buy-btn forDesc" @click="$emit('add-product', product)">Купить</button>
-                </div>
-            </div>
-    `
-})
+            <li class="product-cards-box__list-item">
+                <article class="card-item">
+                    <a href="product.html" class="card-item__link">
+                        <img :src="product.img_product" alt="product image" class="card-item__img">
+                        <header class="card-item__header-box">
+                            <h4 class="card-item__title">{{ product.product_name }}</h4>
+                            <p class="card-item__description">Known for her sculptural takes
+                                on&nbsp;traditional
+                                tailoring, Australian arbiter of&nbsp;cool Kym Ellery teams up&nbsp;with
+                                Moda
+                                Operandi.</p>
+                            <p class="card-item__price">{{ product.price }} $</p>
+                        </header>
+                    </a>
+                    <div class="card-item__form">
+                        <button class="card-item__button" @click="$root.$refs.cart.addProduct(product)">Add to&nbsp;Cart</button>
+                    </div>
+                </article>
+            </li>`
+});

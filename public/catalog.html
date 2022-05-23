@@ -11,9 +11,17 @@
 	<!-- подключение normalize -->
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/style.css">
+
+	<script defer src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+	<script defer src="js/ProductComponent.js"></script>
+	<script defer src="js/CartComponent.js"></script>
+	<script defer src="js/ErrorComponent.js"></script>
+	<script defer src="js/FilterComponent.js"></script>
+	<script defer src="js/main.js"></script>
 </head>
 
 <body>
+	<div id="app">
 	<div class="wrapper">
 		<div class="wrapper-content">
 			<header class="header-page">
@@ -21,19 +29,8 @@
 					<div class="header-menu">
 						<div class="header-menu__wrp">
 							<a href="index.html"><img src="img/logo.svg" alt="brand logo" class="header-menu__logo"></a>
-							<form action="#" class="search-form header-menu__search-form_styled">
-								<input type="checkbox" name="search" id="search" class="search-form__switch-input">
-								<label for="search" class="search-form__switch-label">
-									<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search"
-										class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 512 512">
-										<path
-											d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z">
-										</path>
-									</svg>
-								</label>
-								<input type="search" name="menu-search" placeholder="press Enter for search" class="search-form__input">
-							</form>
+							<!-- фильтр каталога товаров -->
+							<filter-products></filter-products>
 						</div>
 
 						<ul class="header-menu__wrp">
@@ -144,8 +141,8 @@
 								<a href="registration.html" class="header-menu__account"></a>
 							</li>
 							<li>
-								<a href="cart.html" class="header-menu__shopping-cart">
-								</a>
+								<!-- выпадающая корзина -->
+								<cart ref="cart"></cart>
 							</li>
 						</ul>
 					</div>
@@ -407,187 +404,8 @@
 								</ul>
 							</details>
 						</form>
-						<ul class="product-cards-box">
-							<li class="product-cards-box__list-item">
-								<article class="card-item">
-									<a href="product.html" class="card-item__link">
-										<img src="img/product-card-item-1.jpg" alt="product image" class="card-item__img">
-										<header class="card-item__header-box">
-											<h4 class="card-item__title">ELLERY X&nbsp;M&rsquo;O CAPSULE</h4>
-											<p class="card-item__description">Known for her sculptural takes
-												on&nbsp;traditional
-												tailoring, Australian arbiter of&nbsp;cool Kym Ellery teams up&nbsp;with
-												Moda
-												Operandi.</p>
-											<p class="card-item__price">$52.00</p>
-										</header>
-									</a>
-									<form action="#" class="card-item__form">
-										<button class="card-item__button">Add to&nbsp;Cart</button>
-									</form>
-								</article>
-							</li>
-
-							<li class="product-cards-box__list-item product-cards-box__list-item_margin">
-								<article class="card-item">
-									<a href="product.html" class="card-item__link">
-										<img src="img/catalog-product-card-2.jpg" alt="product image" class="card-item__img">
-										<header class="card-item__header-box">
-											<h4 class="card-item__title">ELLERY X&nbsp;M&rsquo;O CAPSULE</h4>
-											<p class="card-item__description">Known for her sculptural takes
-												on&nbsp;traditional
-												tailoring, Australian arbiter of&nbsp;cool Kym Ellery teams up&nbsp;with
-												Moda
-												Operandi.</p>
-											<p class="card-item__price">$52.00</p>
-										</header>
-									</a>
-									<form action="#" class="card-item__form">
-										<button class="card-item__button">Add to&nbsp;Cart</button>
-									</form>
-								</article>
-							</li>
-
-							<li class="product-cards-box__list-item adp-tablet-disp-none">
-								<article class="card-item">
-									<a href="product.html" class="card-item__link">
-										<img src="img/product-card-item-3.jpg" alt="product image" class="card-item__img">
-										<header class="card-item__header-box">
-											<h4 class="card-item__title">ELLERY X&nbsp;M&rsquo;O CAPSULE</h4>
-											<p class="card-item__description">Known for her sculptural takes
-												on&nbsp;traditional
-												tailoring, Australian arbiter of&nbsp;cool Kym Ellery teams up&nbsp;with
-												Moda
-												Operandi.</p>
-											<p class="card-item__price">$52.00</p>
-										</header>
-									</a>
-									<form action="#" class="card-item__form">
-										<button class="card-item__button">Add to&nbsp;Cart</button>
-									</form>
-								</article>
-							</li>
-
-							<li class="product-cards-box__list-item">
-								<article class="card-item">
-									<a href="product.html" class="card-item__link">
-										<img src="img/product-card-item-4.jpg" alt="product image" class="card-item__img">
-										<header class="card-item__header-box">
-											<h4 class="card-item__title">ELLERY X&nbsp;M&rsquo;O CAPSULE</h4>
-											<p class="card-item__description">Known for her sculptural takes
-												on&nbsp;traditional
-												tailoring, Australian arbiter of&nbsp;cool Kym Ellery teams up&nbsp;with
-												Moda
-												Operandi.</p>
-											<p class="card-item__price">$52.00</p>
-										</header>
-									</a>
-									<form action="#" class="card-item__form">
-										<button class="card-item__button">Add to&nbsp;Cart</button>
-									</form>
-								</article>
-							</li>
-
-							<li class="product-cards-box__list-item product-cards-box__list-item_margin">
-								<article class="card-item">
-									<a href="product.html" class="card-item__link">
-										<img src="img/catalog-product-card-5.jpg" alt="product image" class="card-item__img">
-										<header class="card-item__header-box">
-											<h4 class="card-item__title">ELLERY X&nbsp;M&rsquo;O CAPSULE</h4>
-											<p class="card-item__description">Known for her sculptural takes
-												on&nbsp;traditional
-												tailoring, Australian arbiter of&nbsp;cool Kym Ellery teams up&nbsp;with
-												Moda
-												Operandi.</p>
-											<p class="card-item__price">$52.00</p>
-										</header>
-									</a>
-									<form action="#" class="card-item__form">
-										<button class="card-item__button">Add to&nbsp;Cart</button>
-									</form>
-								</article>
-							</li>
-
-							<li class="product-cards-box__list-item">
-								<article class="card-item">
-									<a href="product.html" class="card-item__link">
-										<img src="img/catalog-product-card-6.jpg" alt="product image" class="card-item__img">
-										<header class="card-item__header-box">
-											<h4 class="card-item__title">ELLERY X&nbsp;M&rsquo;O CAPSULE</h4>
-											<p class="card-item__description">Known for her sculptural takes
-												on&nbsp;traditional
-												tailoring, Australian arbiter of&nbsp;cool Kym Ellery teams up&nbsp;with
-												Moda
-												Operandi.</p>
-											<p class="card-item__price">$52.00</p>
-										</header>
-									</a>
-									<form action="#" class="card-item__form">
-										<button class="card-item__button">Add to&nbsp;Cart</button>
-									</form>
-								</article>
-							</li>
-
-							<li class="product-cards-box__list-item">
-								<article class="card-item">
-									<a href="product.html" class="card-item__link">
-										<img src="img/catalog-product-card-7.jpg" alt="product image" class="card-item__img">
-										<header class="card-item__header-box">
-											<h4 class="card-item__title">ELLERY X&nbsp;M&rsquo;O CAPSULE</h4>
-											<p class="card-item__description">Known for her sculptural takes
-												on&nbsp;traditional
-												tailoring, Australian arbiter of&nbsp;cool Kym Ellery teams up&nbsp;with
-												Moda
-												Operandi.</p>
-											<p class="card-item__price">$52.00</p>
-										</header>
-									</a>
-									<form action="#" class="card-item__form">
-										<button class="card-item__button">Add to&nbsp;Cart</button>
-									</form>
-								</article>
-							</li>
-
-							<li class="product-cards-box__list-item product-cards-box__list-item_margin">
-								<article class="card-item">
-									<a href="product.html" class="card-item__link">
-										<img src="img/catalog-product-card-8.jpg" alt="product image" class="card-item__img">
-										<header class="card-item__header-box">
-											<h4 class="card-item__title">ELLERY X&nbsp;M&rsquo;O CAPSULE</h4>
-											<p class="card-item__description">Known for her sculptural takes
-												on&nbsp;traditional
-												tailoring, Australian arbiter of&nbsp;cool Kym Ellery teams up&nbsp;with
-												Moda
-												Operandi.</p>
-											<p class="card-item__price">$52.00</p>
-										</header>
-									</a>
-									<form action="#" class="card-item__form">
-										<button class="card-item__button">Add to&nbsp;Cart</button>
-									</form>
-								</article>
-							</li>
-
-							<li class="product-cards-box__list-item">
-								<article class="card-item">
-									<a href="product.html" class="card-item__link">
-										<img src="img/catalog-product-card-9.jpg" alt="product image" class="card-item__img">
-										<header class="card-item__header-box">
-											<h4 class="card-item__title">ELLERY X&nbsp;M&rsquo;O CAPSULE</h4>
-											<p class="card-item__description">Known for her sculptural takes
-												on&nbsp;traditional
-												tailoring, Australian arbiter of&nbsp;cool Kym Ellery teams up&nbsp;with
-												Moda
-												Operandi.</p>
-											<p class="card-item__price">$52.00</p>
-										</header>
-									</a>
-									<form action="#" class="card-item__form">
-										<button class="card-item__button">Add to&nbsp;Cart</button>
-									</form>
-								</article>
-							</li>
-						</ul>
+						<!-- каталог товаров -->
+						<products ref="products"></products>
 						<div class="pagination">
 							<a href="#" class="pagination__item">
 								<i class="fas fa-chevron-left"></i>
@@ -698,6 +516,7 @@
 				</div>
 			</div>
 		</footer>
+	</div>
 	</div>
 </body>
 
