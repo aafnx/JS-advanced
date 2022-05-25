@@ -3,11 +3,14 @@
     "countGoods": 2,
     "contents": [
         {
-            "count": 8,
-            "id_product": 16,
-            "product_name": "Women's shirt",
-            "img_product": "img/product-card-item-6.jpg",
-            "price": 40
+            "count": 2,
+            "id_product": 12,
+            "product_name": "Women's blazer",
+            "img_product": "img/product-card-item-2.jpg",
+            "price": 48,
+            "action": "added to cart",
+            "date": "25.5.2022",
+            "time": "21:17:3"
         },
         {
             "count": 2,
