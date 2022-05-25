@@ -1,11 +1,13 @@
 const fs = require('fs');
 const logFile = 'server/log/log.json';
 
+
+
 const logHandler = (req, res, action, file) => {
     const date = new Date();
     const day = `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()}`;
     const time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-
+// TODO! сделать обработки ошибок
     fs.readFile(file, 'utf-8', (err, data)=> {
       let product;
       // если товар в корзине, то ищем по id
@@ -48,7 +50,7 @@ const logHandler = (req, res, action, file) => {
           date: day,
           time: time
         });
-
+// TODO! сделать обработки ошибок
         // получаем информацию о всех логах, записанных ранее
         fs.readFile(logFile, 'utf-8', (errLog, dataLog) => {
           const logs = JSON.parse(dataLog);
@@ -56,6 +58,7 @@ const logHandler = (req, res, action, file) => {
         // для удобства чтения в начало массива
           logs.unshift(logProduct);
         // перезаписываем файл с логами
+        // TODO! сделать обработки ошибок
           fs.writeFile(logFile, JSON.stringify(logs, null , 4), (err, data) => console.log(err));
         });
       });
