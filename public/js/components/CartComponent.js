@@ -1,4 +1,27 @@
-Vue.component('cart', {
+import error from "./ErrorComponent";
+
+const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+
+const cartItem = {
+    props: ['cartItem'],
+    template: `
+    <div class="cart-item">
+        <div class="product-desc">
+        <img :src="cartItem.img_product" class="imgInCart">
+            <h3>{{ cartItem.product_name }}</h3>
+            <p>Цена: {{ cartItem.price }} $</p>
+            <div class="changeQuantity">
+                <button class="del-btn btnInCart" @click="$emit('remove', cartItem)"> - </button>
+                <p>&#160;{{ cartItem.count }}&#160; шт.&#160; </p>
+                <button class="btnInCart" @click="$emit('add-product', cartItem)"> + </button>
+            </div>          
+            <p>Сумма: {{ cartItem.price * cartItem.count }} $</p>
+        </div>
+    </div>
+    `
+}
+
+const cart = {
     data() {
         return {
             cartUrl: '/getBasket.json',
@@ -7,8 +30,12 @@ Vue.component('cart', {
             showCart: false
         }
     },
+    components: {
+        'cart-item': cartItem,
+        error,
+    },
     mounted() {
-        this.$parent.getJson(`/api/cart`)
+        this.$root.getJson(`/api/cart`)
             .then(data => {
                 for (let item of data.contents) {
                     this.$data.cartItems.push(item);
@@ -19,7 +46,7 @@ Vue.component('cart', {
         addProduct(item) {
             let find = this.cartItems.find(el => el.id_product === item.id_product);
             if (find) {
-                this.$parent.putJson(`/api/cart/${find.id_product}`, {
+                this.$root.putJson(`/api/cart/${find.id_product}`, {
                         count: 1
                     })
                     .then(data => {
@@ -31,7 +58,7 @@ Vue.component('cart', {
                 const prod = Object.assign({
                     count: 1
                 }, item);
-                this.$parent.postJson(`/api/cart`, prod)
+                this.$root.postJson(`/api/cart`, prod)
                     .then(data => {
                         if (data.result === 1) {
                             this.cartItems.push(prod)
@@ -40,11 +67,11 @@ Vue.component('cart', {
             }
         },
         remove(item) {
-            this.$parent.getJson(`${API}/addToBasket.json`)
+            this.$root.getJson(`${API}/addToBasket.json`)
                 .then(data => {
                     if (data.result === 1) {
                         if (item.count > 1) {
-                            this.$parent.putJson(`/api/cart/${item.id_product}`, {
+                            this.$root.putJson(`/api/cart/${item.id_product}`, {
                                     count: -1
                                 })
                                 .then(data => {
@@ -53,7 +80,7 @@ Vue.component('cart', {
                                     }
                                 });
                         } else {
-                            this.$parent.deleteJson(`/api/cart/${item.id_product}`, item)
+                            this.$root.deleteJson(`/api/cart/${item.id_product}`, item)
                                 .then(data => {
                                     if (data.result === 1) {
                                         this.cartItems.splice(this.cartItems.indexOf(item), 1);
@@ -91,6 +118,7 @@ Vue.component('cart', {
                         </h3>
                         <cart-item 
                             v-for="item of cartItems"
+                            :key="item.id_product"
                             :cart-item="item" 
                             @add-product="addProduct"
                             @remove="remove"
@@ -98,24 +126,9 @@ Vue.component('cart', {
                     </div>  
             </div>
         </div>
-        `
-});
-
-Vue.component('cart-item', {
-    props: ['cartItem'],
-    template: `
-    <div class="cart-item">
-        <div class="product-desc">
-        <img :src="cartItem.img_product" class="imgInCart">
-            <h3>{{ cartItem.product_name }}</h3>
-            <p>Цена: {{ cartItem.price }} $</p>
-            <div class="changeQuantity">
-                <button class="del-btn btnInCart" @click="$emit('remove', cartItem)"> - </button>
-                <p>&#160;{{ cartItem.count }}&#160; шт.&#160; </p>
-                <button class="btnInCart" @click="$emit('add-product', cartItem)"> + </button>
-            </div>          
-            <p>Сумма: {{ cartItem.price * cartItem.count }} $</p>
         </div>
-    </div>
-    `
-})
+        `
+}
+
+export default cart
+

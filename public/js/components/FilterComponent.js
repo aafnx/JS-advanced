@@ -1,4 +1,4 @@
-Vue.component('filter-products', {
+const filterProducts = {
   template: `
   <form action="#" @submit.prevent="$root.$refs.products.filter(userSearch)" class="search-form header-menu__search-form_styled">
     <input type="checkbox" name="search" id="search" class="search-form__switch-input">
@@ -19,5 +19,6 @@ Vue.component('filter-products', {
       userSearch: '',
     }
   },
-});
+}
 
+export default filterProducts

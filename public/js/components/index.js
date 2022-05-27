@@ -1,8 +1,30 @@
-const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
-const app = new Vue({
+import footer from './FooterPageComponent'
+import advantages from './AdvantagesComponent';
+import cart from './CartComponent';
+import products from './ProductComponent';
+import filterProducts from './FilterComponent';
+import error from './ErrorComponent';
+import mainPageCategory from './MainPageCategoryComponent';
+import mainPageTitle from './MainPageTitleComponent';
+import headerPage from './HeaderPageComponent';
+
+// const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
+
+new Vue({
     el: '#app',
     data: {
         error: false
+    },
+    components: {
+        'footer-component': footer,
+        advantages,
+        products,
+        'filter-products': filterProducts,
+        cart,
+        error,
+        'main-page-category': mainPageCategory,
+        'main-page-title': mainPageTitle,
+        'header-page': headerPage
     },
     methods: {
         getJson(url){
