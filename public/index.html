@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Store. Main page</title>
+	<!-- подключение font awesome -->
+	<script src="https://kit.fontawesome.com/514d13999e.js" crossorigin="anonymous"></script>
+	<!-- подключение normalize -->
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/style.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+	<script defer src="./js/build.js"></script>
+</head>
+
+<body>
+
+<div>
+	<div id="app">
+	<div class="wrapper">
+		<div class="wrapper-content">
+			<header-page ref="header"></header-page>
+			<main class="main-page-content">
+				<main-page-title></main-page-title>
+				<div class="container">
+					<main-page-category></main-page-category>
+						<!-- каталог товаров -->
+					<products ref="products"></products>
+				</div>
+				<advantages></advantages>
+			</main>
+		</div>
+		<footer-component></footer-component>
+	</div>
+</div>
+</body>
+
+</html>
